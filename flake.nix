@@ -24,6 +24,18 @@
               export RUST_SRC_PATH=${rustToolchain}/lib/rustlib/src/rust/library
             '';
           };
+
+          packages.default = pkgs.rustPlatform.buildRustPackage {
+            pname = "allocator-api2";
+            version = "0.3.1"; # Corrected version
+            src = ./.;
+            cargoLock = {
+              lockFile = ./Cargo.lock;
+            };
+            buildInputs = [ rustToolchain ];
+          };
+
+          defaultPackage = self.packages.default;
         }
       );
 }
