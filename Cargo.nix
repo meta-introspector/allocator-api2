@@ -26,7 +26,7 @@ args@{
   cargoConfig ? {},
 }:
 let
-  nixifiedLockHash = "04d5dfe84f990ae170d6670c790378c0e8520cdf07dbd3a8984f6be271ac8c0e";
+  nixifiedLockHash = "84666eb16670da6adc7e81c86ef34366dc6ead5c570394d94977cc26ed753dea";
   workspaceSrc = if args.workspaceSrc == null then ./. else args.workspaceSrc;
   currentLockHash = builtins.hashFile "sha256" (workspaceSrc + /Cargo.lock);
   lockHashIgnored = if ignoreLockHash
@@ -88,29 +88,29 @@ in
     };
   });
   
-  "registry+https://github.com/rust-lang/crates.io-index".proc-macro2."1.0.103" = overridableMkRustCrate (profileName: rec {
+  "registry+https://github.com/rust-lang/crates.io-index".proc-macro2."1.0.101" = overridableMkRustCrate (profileName: rec {
     name = "proc-macro2";
-    version = "1.0.103";
+    version = "1.0.101";
     registry = "registry+https://github.com/rust-lang/crates.io-index";
-    src = fetchCratesIo { inherit name version; sha256 = "5ee95bc4ef87b8d5ba32e8b7714ccc834865276eab0aed5c9958d00ec45f49e8"; };
+    src = fetchCratesIo { inherit name version; sha256 = "89ae43fd86e4158d6db51ad8e2b80f313af9cc74f5c0e03ccb87de09998732de"; };
     features = builtins.concatLists [
       (lib.optional (rootFeatures' ? "allocator-api2/serde") "proc-macro")
     ];
     dependencies = {
-      ${ if rootFeatures' ? "allocator-api2/serde" then "unicode_ident" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".unicode-ident."1.0.22" { inherit profileName; }).out;
+      ${ if rootFeatures' ? "allocator-api2/serde" then "unicode_ident" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".unicode-ident."1.0.19" { inherit profileName; }).out;
     };
   });
   
-  "registry+https://github.com/rust-lang/crates.io-index".quote."1.0.42" = overridableMkRustCrate (profileName: rec {
+  "registry+https://github.com/rust-lang/crates.io-index".quote."1.0.41" = overridableMkRustCrate (profileName: rec {
     name = "quote";
-    version = "1.0.42";
+    version = "1.0.41";
     registry = "registry+https://github.com/rust-lang/crates.io-index";
-    src = fetchCratesIo { inherit name version; sha256 = "a338cc41d27e6cc6dce6cefc13a0729dfbb81c262b1f519331575dd80ef3067f"; };
+    src = fetchCratesIo { inherit name version; sha256 = "ce25767e7b499d1b604768e7cde645d14cc8584231ea6b295e9c9eb22c02e1d1"; };
     features = builtins.concatLists [
       (lib.optional (rootFeatures' ? "allocator-api2/serde") "proc-macro")
     ];
     dependencies = {
-      ${ if rootFeatures' ? "allocator-api2/serde" then "proc_macro2" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".proc-macro2."1.0.103" { inherit profileName; }).out;
+      ${ if rootFeatures' ? "allocator-api2/serde" then "proc_macro2" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".proc-macro2."1.0.101" { inherit profileName; }).out;
     };
   });
   
@@ -151,17 +151,17 @@ in
       (lib.optional (rootFeatures' ? "allocator-api2/serde") "default")
     ];
     dependencies = {
-      ${ if rootFeatures' ? "allocator-api2/serde" then "proc_macro2" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".proc-macro2."1.0.103" { inherit profileName; }).out;
-      ${ if rootFeatures' ? "allocator-api2/serde" then "quote" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".quote."1.0.42" { inherit profileName; }).out;
-      ${ if rootFeatures' ? "allocator-api2/serde" then "syn" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".syn."2.0.110" { inherit profileName; }).out;
+      ${ if rootFeatures' ? "allocator-api2/serde" then "proc_macro2" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".proc-macro2."1.0.101" { inherit profileName; }).out;
+      ${ if rootFeatures' ? "allocator-api2/serde" then "quote" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".quote."1.0.41" { inherit profileName; }).out;
+      ${ if rootFeatures' ? "allocator-api2/serde" then "syn" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".syn."2.0.106" { inherit profileName; }).out;
     };
   });
   
-  "registry+https://github.com/rust-lang/crates.io-index".syn."2.0.110" = overridableMkRustCrate (profileName: rec {
+  "registry+https://github.com/rust-lang/crates.io-index".syn."2.0.106" = overridableMkRustCrate (profileName: rec {
     name = "syn";
-    version = "2.0.110";
+    version = "2.0.106";
     registry = "registry+https://github.com/rust-lang/crates.io-index";
-    src = fetchCratesIo { inherit name version; sha256 = "a99801b5bd34ede4cf3fc688c5919368fea4e4814a4664359503e6015b280aea"; };
+    src = fetchCratesIo { inherit name version; sha256 = "ede7c438028d4436d71104916910f5bb611972c5cfd7f89b8300a8186e6fada6"; };
     features = builtins.concatLists [
       (lib.optional (rootFeatures' ? "allocator-api2/serde") "clone-impls")
       (lib.optional (rootFeatures' ? "allocator-api2/serde") "derive")
@@ -170,17 +170,17 @@ in
       (lib.optional (rootFeatures' ? "allocator-api2/serde") "proc-macro")
     ];
     dependencies = {
-      ${ if rootFeatures' ? "allocator-api2/serde" then "proc_macro2" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".proc-macro2."1.0.103" { inherit profileName; }).out;
-      ${ if rootFeatures' ? "allocator-api2/serde" then "quote" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".quote."1.0.42" { inherit profileName; }).out;
-      ${ if rootFeatures' ? "allocator-api2/serde" then "unicode_ident" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".unicode-ident."1.0.22" { inherit profileName; }).out;
+      ${ if rootFeatures' ? "allocator-api2/serde" then "proc_macro2" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".proc-macro2."1.0.101" { inherit profileName; }).out;
+      ${ if rootFeatures' ? "allocator-api2/serde" then "quote" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".quote."1.0.41" { inherit profileName; }).out;
+      ${ if rootFeatures' ? "allocator-api2/serde" then "unicode_ident" else null } = (rustPackages."registry+https://github.com/rust-lang/crates.io-index".unicode-ident."1.0.19" { inherit profileName; }).out;
     };
   });
   
-  "registry+https://github.com/rust-lang/crates.io-index".unicode-ident."1.0.22" = overridableMkRustCrate (profileName: rec {
+  "registry+https://github.com/rust-lang/crates.io-index".unicode-ident."1.0.19" = overridableMkRustCrate (profileName: rec {
     name = "unicode-ident";
-    version = "1.0.22";
+    version = "1.0.19";
     registry = "registry+https://github.com/rust-lang/crates.io-index";
-    src = fetchCratesIo { inherit name version; sha256 = "9312f7c4f6ff9069b165498234ce8be658059c6728633667c526e27dc2cf1df5"; };
+    src = fetchCratesIo { inherit name version; sha256 = "f63a545481291138910575129486daeaf8ac54aee4387fe7906919f7830c7d9d"; };
   });
   
 }
