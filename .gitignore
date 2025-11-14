@@ -1,3 +1,4 @@
 result
 **/*.rs.bk
 target
+/vendor/

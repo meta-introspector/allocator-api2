@@ -1,41 +1,50 @@
 {
-  description = "Nix flake for allocator-api2";
-
   inputs = {
     nixpkgs.url = "github:meta-introspector/nixpkgs?ref=feature/CRQ-016-nixify";
-    rust-overlay.url = "github:meta-introspector/rust-overlay?ref=feature/CRQ-016-nixify";
     flake-utils.url = "github:meta-introspector/flake-utils?ref=feature/CRQ-016-nixify";
+    cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.12";
+    rust-overlay.url = "github:meta-introspector/rust-overlay?ref=feature/CRQ-016-nixify";
   };
 
-  outputs = { self, nixpkgs, rust-overlay, flake-utils }: 
+  outputs = inputs: with inputs;
     flake-utils.lib.eachDefaultSystem
       (system:
         let
-          overlays = [ rust-overlay.overlays.default ];
           pkgs = import nixpkgs {
-            inherit system overlays;
+            inherit system;
+            overlays = [ cargo2nix.overlays.default rust-overlay.overlays.default ];
+            config = {
+              permittedInsecurePackages = [ "openssl-1.1.1w" ];
+            };
           };
-          rustToolchain = pkgs.rust-bin.nightly.latest.default;
-        in
-        {
-          devShells.default = pkgs.mkShell {
-            buildInputs = [ rustToolchain ];
+          myRustc = pkgs.rust-bin.nightly."2025-09-16".default;
+          rustPkgs = pkgs.rustBuilder.makePackageSet {
+            packageFun = import ./Cargo.nix;
+            rustToolchain = myRustc;
+            # rootFeatures = [ ... ]; # Add specific features if needed
+            # packageOverrides = pkgs: [ ... ]; # Add specific overrides if needed
+          };
+          workspaceShell = pkgs.mkShell {
+            packages = [ pkgs.statix pkgs.openssl_1_1.dev ];
             shellHook = ''
-              export RUST_SRC_PATH=${rustToolchain}/lib/rustlib/src/rust/library
+!              export PKG_CONFIG_PATH=${pkgs.openssl_1_1.dev}/lib/pkgconfig:$PKG_CONFIG_PATH
             '';
           };
-
-          packages.default = pkgs.rustPlatform.buildRustPackage {
-            pname = "allocator-api2";
-            version = "0.3.1"; # Corrected version
-            src = ./.;
-            cargoLock = {
-              lockFile = ./Cargo.lock;
+          
+        in
+          rec {
+            devShells = {
+              default = workspaceShell;
             };
-            buildInputs = [ rustToolchain ];
-          };
-
-          defaultPackage = self.packages.default;
-        }
+            
+            packages = rec {
+              allocator-api2 = rustPkgs.workspace.allocator-api2 {};
+              default = allocator-api2;
+            };
+            apps = rec {
+              allocator-api2-app = { type = "app"; program = "${packages.default}/bin/allocator-api2"; };
+              default = allocator-api2-app;
+            };
+          }
       );
 }
