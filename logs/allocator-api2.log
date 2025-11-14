@@ -1,0 +1,23 @@
+--- Log for submodule: allocator-api2 ---
+Running 'cargo update' in "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/allocator-api2"...
+     Locking 0 packages to latest compatible versions
+'cargo update' succeeded.
+Running 'cargo vendor' in "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/allocator-api2"...
+   Vendoring proc-macro2 v1.0.101 (/data/data/com.termux.nix/files/home/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro2-1.0.101) to /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/allocator-api2/vendor/proc-macro2
+   Vendoring quote v1.0.41 (/data/data/com.termux.nix/files/home/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/quote-1.0.41) to /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/allocator-api2/vendor/quote
+   Vendoring serde v1.0.228 (/data/data/com.termux.nix/files/home/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228) to /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/allocator-api2/vendor/serde
+   Vendoring serde_core v1.0.228 (/data/data/com.termux.nix/files/home/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.228) to /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/allocator-api2/vendor/serde_core
+   Vendoring serde_derive v1.0.228 (/data/data/com.termux.nix/files/home/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_derive-1.0.228) to /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/allocator-api2/vendor/serde_derive
+   Vendoring syn v2.0.106 (/data/data/com.termux.nix/files/home/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/syn-2.0.106) to /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/allocator-api2/vendor/syn
+   Vendoring unicode-ident v1.0.19 (/data/data/com.termux.nix/files/home/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unicode-ident-1.0.19) to /data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/allocator-api2/vendor/unicode-ident
+To use vendored sources, add this to your .cargo/config.toml for this project:
+
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "vendor"
+'cargo vendor' succeeded.
+Running 'cargo2nix -o Cargo.nix' in "/data/data/com.termux.nix/files/home/pick-up-nix2/vendor/rust/cargo2nix/submodules/allocator-api2"...
+'cargo2nix' succeeded.
+Submodule tasks completed successfully!
