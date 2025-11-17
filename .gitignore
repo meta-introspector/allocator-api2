@@ -2,3 +2,4 @@ result
 **/*.rs.bk
 target
 /vendor/
+process-repo.log
